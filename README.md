@@ -57,13 +57,25 @@ Options and their default values:
 - `--size 1024` size (int) of generated images
 - `--sample 1` number (int) of samples in the same image file
 - `--pics 0` number (int) of separate image files
-- `--samples_z` accepts list of paths (str) to saved latent codes to be used for generation (e.g. --samples_z 1.pt 2.pt 3.pt)
 - `--truncation 1` range between 0 and 1 (float) of truncation trick coefficient (ψ in the original paper)
 - `--truncation_mean 4096` number (int) of latent code samples to generate a mean vector for the truncation trick
 - `--ckpt stylegan2-ffhq-config-f.pt` path (str) to saved model checkpoint
 - `--channel_multiplier 2`
 - `--savedir sample/` path (str) to save directory
-- `--save_z` flag indicating whether to save latent codes corresponding to generated images (disabled by default when --samples_z is used)
+- `--save_z` flag indicating whether to save latent codes corresponding to generated images
+
+### Generate samples from given z latent code
+
+```python
+python generate_from_z.py --samples_z A.pt B.pt C.pt --ckpt PATH_CHECKPOINT
+```
+
+Generate samples from previously saved latent codes A, B and C (saved as '000000.png', '000001.png', …)
+
+Options and their default values:
+
+- Same as for `generate.py`, but `--save_z` flag is False by default
+- `--samples_z` list of paths (str) to saved latent codes to be used for generation (e.g. --samples_z 1.pt 2.pt 3.pt)
 
 ### Project images to latent spaces
 

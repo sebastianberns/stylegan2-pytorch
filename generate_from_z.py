@@ -16,8 +16,8 @@ def generate(args, g_ema):
         else:
             mean_latent = None
 
-        for i in tqdm(range(args.pics)):
-            sample_z = torch.randn(args.sample, args.latent, device=args.device)
+        for i in tqdm(range(len(args.samples_z))):
+            sample_z = torch.load(args.samples_z[i], map_location=args.device)
             sample, _ = g_ema([sample_z], truncation=args.truncation, truncation_latent=mean_latent)
 
             # Create directory if it does not exist
@@ -31,8 +31,6 @@ def generate(args, g_ema):
                 normalize=True,
                 range=(-1, 1),
             )
-            if args.save_z:
-                torch.save(sample_z, dir/f'z{name}.pt')
 
 
 if __name__ == '__main__':
@@ -40,14 +38,12 @@ if __name__ == '__main__':
 
     parser.add_argument('--device', type=str, default="cuda")
     parser.add_argument('--size', type=int, default=1024)
-    parser.add_argument('--sample', type=int, default=1)
-    parser.add_argument('--pics', type=int, default=0)
+    parser.add_argument('--samples_z', nargs='*')
     parser.add_argument('--truncation', type=float, default=1)
     parser.add_argument('--truncation_mean', type=int, default=4096)
     parser.add_argument('--ckpt', type=str, default="stylegan2-ffhq-config-f.pt")
     parser.add_argument('--channel_multiplier', type=int, default=2)
     parser.add_argument('--savedir', type=str, default="sample/")
-    parser.add_argument('--save_z', action='store_true')
 
     args = parser.parse_args()
 
