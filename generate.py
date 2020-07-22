@@ -30,8 +30,9 @@ def generate(args, g_ema):
 
             sample, _ = g_ema([sample_z], truncation=args.truncation, truncation_latent=mean_latent)
 
+            # Create directory if it does not exist
+            dir = Path(args.savedir).mkdir(parents=True, exist_ok=True)
             name = str(i).zfill(6)
-            dir = Path(args.savedir)
             utils.save_image(
                 sample,
                 dir/f'{name}.png',

@@ -46,10 +46,10 @@ This will create converted stylegan2-ffhq-config-f.pt file.
 ### Generate samples
 
 ```python
-python generate.py --sample N_FACES --pics N_PICS --ckpt PATH_CHECKPOINT --savedir sample/
+python generate.py --sample N_FACES --pics N_PICS --ckpt PATH_CHECKPOINT
 ```
 
-Generate `N_PICS` separate files, each with `N_FACES` samples, saved to the directory 'sample/' (as '000000.png', '000001.png', …)
+Generate `N_PICS` separate files, each with `N_FACES` samples (saved as '000000.png', '000001.png', …)
 
 Options and their default values:
 
