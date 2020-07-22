@@ -3,6 +3,7 @@ import argparse
 import torch
 from torchvision import utils
 from model import Generator
+import numpy as np
 from pathlib import Path
 from tqdm import tqdm
 
