@@ -493,7 +493,8 @@ class Generator(nn.Module):
                     getattr(self.noises, f'noise_{i}') for i in range(self.num_layers)
                 ]
 
-        if truncation < 1:
+        # if truncation < 1:
+        if truncation != 1:
             style_t = []
 
             for style in styles:
@@ -674,4 +675,3 @@ class Discriminator(nn.Module):
         out = self.final_linear(out)
 
         return out
-

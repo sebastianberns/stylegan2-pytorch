@@ -11,10 +11,14 @@ def generate(args, g_ema):
     with torch.no_grad():
         g_ema.eval()
 
-        if args.truncation < 1:
-            mean_latent = g_ema.mean_latent(args.truncation_mean)
-        else:
+        # if args.truncation < 1:
+        #     mean_latent = g_ema.mean_latent(args.truncation_mean)
+        # else:
+        #     mean_latent = None
+        if args.truncation == 1:
             mean_latent = None
+        else:
+            mean_latent = g_ema.mean_latent(args.truncation_mean)
 
         for i in tqdm(range(args.pics)):
             sample_z = torch.randn(args.sample, args.latent, device=args.device)
