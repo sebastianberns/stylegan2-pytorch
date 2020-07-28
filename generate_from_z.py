@@ -11,10 +11,11 @@ def generate(args, g_ema):
     with torch.no_grad():
         g_ema.eval()
 
-        if args.truncation < 1:
-            mean_latent = g_ema.mean_latent(args.truncation_mean)
-        else:
-            mean_latent = None
+        # if args.truncation < 1:
+        #     mean_latent = g_ema.mean_latent(args.truncation_mean)
+        # else:
+        #     mean_latent = None
+        mean_latent = g_ema.mean_latent(args.truncation_mean)
 
         for i in tqdm(range(len(args.samples_z))):
             sample_z = torch.load(args.samples_z[i], map_location=args.device)
@@ -38,12 +39,12 @@ if __name__ == '__main__':
 
     parser.add_argument('--device', type=str, default="cuda")
     parser.add_argument('--size', type=int, default=1024)
-    parser.add_argument('--samples_z', nargs='*')
     parser.add_argument('--truncation', type=float, default=1)
     parser.add_argument('--truncation_mean', type=int, default=4096)
     parser.add_argument('--ckpt', type=str, default="stylegan2-ffhq-config-f.pt")
     parser.add_argument('--channel_multiplier', type=int, default=2)
     parser.add_argument('--savedir', type=str, default="sample/")
+    parser.add_argument('samples_z', nargs='+')
 
     args = parser.parse_args()
 
